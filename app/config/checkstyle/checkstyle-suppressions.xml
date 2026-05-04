@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<!DOCTYPE suppressions PUBLIC
+        "-//Checkstyle//DTD SuppressionFilter Configuration 1.0//EN"
+        "https://checkstyle.org/dtds/configuration_1_3.dtd">
+
+<suppressions>
+    <suppress checks="MagicNumber" files=".*Test\.java"/>
+</suppressions>
