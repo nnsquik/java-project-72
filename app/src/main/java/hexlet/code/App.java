@@ -19,7 +19,7 @@ public class App {
                 .getOrDefault("JDBC_DATABASE_URL", "jdbc:h2:mem:project;DB_CLOSE_DELAY=-1;");
 
         if (!jdbcUrl.startsWith("jdbc:")) {
-            jdbcUrl = "jdbc: " +jdbcUrl;
+            jdbcUrl = "jdbc: " +jdbcUrl.trim();
         }
 
         var hikariConfig = new HikariConfig();
