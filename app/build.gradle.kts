@@ -22,10 +22,11 @@ dependencies {
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     implementation("io.javalin:javalin:$javalinVersion")
     implementation("org.slf4j:slf4j-simple:$slf4jVersion")
-}
-
-dependencyLocking {
-    lockAllConfigurations()
+    implementation("com.zaxxer:HikariCP:7.0.2")
+    implementation("com.h2database:h2:2.4.240")
+    implementation("org.postgresql:postgresql:42.7.11")
+    compileOnly("org.projectlombok:lombok:1.18.46")
+    annotationProcessor("org.projectlombok:lombok:1.18.46")
 }
 
 tasks.test {
