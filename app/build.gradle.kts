@@ -13,12 +13,19 @@ repositories {
     mavenCentral()
 }
 
+val javalinVersion = "7.2.0"
+val slf4jVersion = "2.0.17"
+
 dependencies {
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-    implementation("io.javalin:javalin:7.2.0")
-    implementation("org.slf4j:slf4j-simple:2.0.17")
+    implementation("io.javalin:javalin:$javalinVersion")
+    implementation("org.slf4j:slf4j-simple:$slf4jVersion")
+}
+
+dependencyLocking {
+    lockAllConfigurations()
 }
 
 tasks.test {
