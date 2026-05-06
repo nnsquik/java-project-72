@@ -33,3 +33,5 @@ jobs:
 
       - name: Run tests
         run: ./gradlew test
+        env:
+          JDBC_DATABASE_URL: jdbc:h2:mem:project;DB_CLOSE_DELAY=-1;

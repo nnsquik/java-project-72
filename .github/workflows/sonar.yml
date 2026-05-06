@@ -38,5 +38,6 @@ jobs:
         working-directory: ./app
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          JDBC_DATABASE_URL: jdbc:h2:mem:project;DB_CLOSE_DELAY=-1;
 
         run: ./gradlew build sonar --info
