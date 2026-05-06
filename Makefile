@@ -8,3 +8,6 @@ install:
 
 run:
 	cd app && ./gradlew run
+
+test:
+	cd app && ./gradlew test

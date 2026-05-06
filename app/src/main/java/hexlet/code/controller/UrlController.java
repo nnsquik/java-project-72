@@ -39,6 +39,15 @@ public class UrlController {
 
     public static void create(Context ctx) throws SQLException {
         var input = ctx.formParam("url");
+        System.out.println("=== INPUT URL: " + input + " ===");
+        if (input == null || input.isBlank()) {
+            ctx.status(UNPROCESSABLE_ENTITY);
+            ctx.render("index.jte", Map.of(
+                    "flash", "Некорректный URL",
+                    "flash-type", "danger"
+            ));
+            return;
+        }
 
         String normalizedUrl;
         try {
