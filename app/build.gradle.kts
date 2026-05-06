@@ -1,6 +1,7 @@
 plugins {
     id("java")
     id("application")
+    id("io.freefair.lombok") version "9.5.0"
     id("org.sonarqube") version "7.2.3.7755"
     id("com.gradleup.shadow") version "9.0.0"
     checkstyle
@@ -13,20 +14,22 @@ repositories {
     mavenCentral()
 }
 
-val javalinVersion = "7.2.0"
-val slf4jVersion = "2.0.17"
-
 dependencies {
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-    implementation("io.javalin:javalin:$javalinVersion")
-    implementation("org.slf4j:slf4j-simple:$slf4jVersion")
-    implementation("com.zaxxer:HikariCP:7.0.2")
-    implementation("com.h2database:h2:2.4.240")
-    implementation("org.postgresql:postgresql:42.7.11")
-    compileOnly("org.projectlombok:lombok:1.18.46")
-    annotationProcessor("org.projectlombok:lombok:1.18.46")
+
+    // Логирование (только одна зависимость!)
+    implementation("org.slf4j:slf4j-simple:2.0.17")
+
+    implementation("io.javalin:javalin:6.6.0")
+
+    implementation("io.javalin:javalin-rendering:6.6.0")
+    implementation("gg.jte:jte:3.2.4")
+
+    implementation("com.zaxxer:HikariCP:6.2.1")
+    implementation("com.h2database:h2:2.3.232")
+    implementation("org.postgresql:postgresql:42.7.4")
 }
 
 tasks.test {

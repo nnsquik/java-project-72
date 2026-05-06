@@ -2,8 +2,12 @@ package hexlet.code;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import gg.jte.ContentType;
+import gg.jte.TemplateEngine;
+import gg.jte.resolve.ResourceCodeResolver;
 import hexlet.code.repository.BaseRepository;
 import io.javalin.Javalin;
+import io.javalin.rendering.template.JavalinJte;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -31,9 +35,14 @@ public class App {
             statement.execute(sql);
         }
 
-        return Javalin.create(config ->
-            config.routes.get("/", ctx -> ctx.result("Hello World"))
-        );
+        var app = Javalin.create(config -> {
+            config.bundledPlugins.enableDevLogging();
+            config.fileRenderer(new JavalinJte(createTemplateEngine()));
+        });
+
+        app.get("/", ctx -> ctx.result("Hello World"));
+
+        return app;
     }
 
     private static String readResourceFile(String fileName) throws IOException {
@@ -50,5 +59,11 @@ public class App {
     private static int getPort() {
         var port = System.getenv().getOrDefault("PORT", "7070");
         return Integer.parseInt(port);
+    }
+
+    private static TemplateEngine createTemplateEngine() {
+        ClassLoader classLoader = App.class.getClassLoader();
+        ResourceCodeResolver codeResolver = new ResourceCodeResolver("templates", classLoader);
+        return TemplateEngine.create(codeResolver, ContentType.Html);
     }
 }
