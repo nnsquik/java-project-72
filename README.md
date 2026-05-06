@@ -10,10 +10,16 @@
 -   Java 21+
 - Gradle 8+
 
-## Run locally
+## Commands
 ```bash
-cd app
-./gradlew run
+# Build project
+make build
+
+# Start app
+make run
+
+# Start tests
+make test
 ```
 
 ## Open in browser
