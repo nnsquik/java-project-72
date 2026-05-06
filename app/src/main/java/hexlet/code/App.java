@@ -5,6 +5,7 @@ import com.zaxxer.hikari.HikariDataSource;
 import gg.jte.ContentType;
 import gg.jte.TemplateEngine;
 import gg.jte.resolve.ResourceCodeResolver;
+import hexlet.code.controller.UrlController;
 import hexlet.code.repository.BaseRepository;
 import io.javalin.Javalin;
 import io.javalin.rendering.template.JavalinJte;
@@ -14,6 +15,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class App {
@@ -40,8 +42,17 @@ public class App {
             config.fileRenderer(new JavalinJte(createTemplateEngine()));
         });
 
-        app.get("/", ctx -> ctx.render("index.jte"));
-
+        app.get("/", ctx -> {
+            var flash = ctx.consumeSessionAttribute("flash");
+            var flashType = ctx.consumeSessionAttribute("flash-type");
+            ctx.render("index.jte", Map.of(
+                    "flash", flash == null ? "" : flash,
+                    "flashType", flashType == null ? "" : flashType
+            ));
+        });
+        app.get("/urls", UrlController::index);
+        app.post("/urls", UrlController::create);
+        app.get("/urls/{id}", UrlController::show);
         return app;
     }
 
