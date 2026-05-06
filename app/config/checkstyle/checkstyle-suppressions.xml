@@ -5,4 +5,5 @@
 
 <suppressions>
     <suppress checks="MagicNumber" files=".*Test\.java"/>
+    <suppress checks="VisibilityModifier" files="BaseRepository\.java"/>
 </suppressions>
