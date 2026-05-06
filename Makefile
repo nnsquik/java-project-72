@@ -5,3 +5,6 @@ build:
 
 install:
 	cd app && ./gradlew clean install
+
+run:
+	cd app && ./gradlew run
