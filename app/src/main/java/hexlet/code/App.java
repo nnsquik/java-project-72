@@ -44,7 +44,11 @@ public class App {
     }
 
     public static void main(String[] args) throws SQLException, IOException {
+        getApp().start(getPort());
+    }
+
+    private static int getPort() {
         var port = System.getenv().getOrDefault("PORT", "7070");
-        getApp().start(Integer.parseInt(port));
+        return Integer.parseInt(port);
     }
 }
