@@ -12,6 +12,11 @@ import java.util.List;
 import java.util.Map;
 
 public class UrlCheckRepository extends BaseRepository {
+    private static final int H1_INDEX = 3;
+    private static final int TITLE_INDEX = 4;
+    private static final int DESCRIPTION_INDEX = 5;
+    private static final int CREATED_AT_INDEX = 6;
+
     public static void save(UrlCheck urlCheck) throws SQLException {
         var sql = "INSERT INTO url_checks (url_id, status_code, h1, title, description, created_at) "
                 + "VALUES (?, ?, ?, ?, ?, ?)";
@@ -19,10 +24,10 @@ public class UrlCheckRepository extends BaseRepository {
         var statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             statement.setLong(1, urlCheck.getUrlId());
             statement.setInt(2, urlCheck.getStatusCode());
-            statement.setString(3, urlCheck.getH1());
-            statement.setString(4, urlCheck.getTitle());
-            statement.setString(5, urlCheck.getDescription());
-            statement.setTimestamp(6, Timestamp.valueOf(LocalDateTime.now()));
+            statement.setString(H1_INDEX, urlCheck.getH1());
+            statement.setString(TITLE_INDEX, urlCheck.getTitle());
+            statement.setString(DESCRIPTION_INDEX, urlCheck.getDescription());
+            statement.setTimestamp(CREATED_AT_INDEX, Timestamp.valueOf(LocalDateTime.now()));
             statement.executeUpdate();
 
             var keys = statement.getGeneratedKeys();

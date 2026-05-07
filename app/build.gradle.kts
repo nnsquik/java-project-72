@@ -63,9 +63,6 @@ sonar {
 
 checkstyle {
     configFile = file("config/checkstyle/checkstyle.xml")
-    configProperties = mapOf(
-        "org.checkstyle.sun.suppressionfilter.config" to "${rootDir}/config/checkstyle/checkstyle-suppressions.xml"
-    )
 }
 
 application {

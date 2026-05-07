@@ -11,6 +11,8 @@ import org.jsoup.Jsoup;
 import java.sql.SQLException;
 
 public class UrkCheckController {
+    private static final int BAD_REQUEST = 400;
+
     public static void create(Context ctx) throws SQLException {
         var id = ctx.pathParamAsClass("id", Long.class).get();
         var url = UrlRepository.find(id)
@@ -20,7 +22,7 @@ public class UrkCheckController {
             var response = Unirest.get(url.getName()).asString();
             var statusCode = response.getStatus();
 
-            if (statusCode >= 400) {
+            if (statusCode >= BAD_REQUEST) {
                 ctx.sessionAttribute("flash", "Произошла ошибка при проверке");
                 ctx.sessionAttribute("flash-type", "danger");
                 ctx.redirect("/urls/" + id);
