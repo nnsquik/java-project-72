@@ -5,6 +5,7 @@ import com.zaxxer.hikari.HikariDataSource;
 import gg.jte.ContentType;
 import gg.jte.TemplateEngine;
 import gg.jte.resolve.ResourceCodeResolver;
+import hexlet.code.controller.UrkCheckController;
 import hexlet.code.controller.UrlController;
 import hexlet.code.repository.BaseRepository;
 import io.javalin.Javalin;
@@ -50,9 +51,13 @@ public class App {
                     "flashType", flashType == null ? "" : flashType
             ));
         });
+
         app.get("/urls", UrlController::index);
-        app.post("/urls", UrlController::create);
         app.get("/urls/{id}", UrlController::show);
+
+        app.post("/urls", UrlController::create);
+        app.post("/urls/{id}/checks", UrkCheckController::create);
+
         return app;
     }
 

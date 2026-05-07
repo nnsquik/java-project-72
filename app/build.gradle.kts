@@ -21,7 +21,7 @@ dependencies {
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     testImplementation("io.javalin:javalin-testtools:6.6.0")
     testImplementation("org.assertj:assertj-core:3.27.3")
-
+    testImplementation("com.squareup.okhttp3:mockwebserver:5.3.2")
     implementation("org.slf4j:slf4j-simple:2.0.17")
 
     implementation("io.javalin:javalin:6.6.0")
@@ -34,6 +34,10 @@ dependencies {
     implementation("org.postgresql:postgresql:42.7.4")
 
     implementation("com.fasterxml.jackson.core:jackson-databind:2.17.2")
+
+    implementation("com.konghq:unirest-java:3.14.5")
+
+    implementation("org.jsoup:jsoup:1.17.2")
 }
 
 tasks.test {

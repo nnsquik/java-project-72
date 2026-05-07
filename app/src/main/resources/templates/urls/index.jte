@@ -1,6 +1,9 @@
 @import hexlet.code.model.Url
+@import hexlet.code.model.UrlCheck
 @import java.util.List
+@import java.util.Map
 @param List<Url> urls
+@param Map<Long, UrlCheck> latestChecks
 @param String flash
 @param String flashType
 
@@ -20,8 +23,8 @@
             <tr>
                 <td>${url.getId()}</td>
                 <td><a href="/urls/${url.getId()}">${url.getName()}</a></td>
-                <td>${url.getCreatedAt() != null ? url.getCreatedAt().toLocalDateTime().toLocalDate().toString() : ""}</td>
-                <td></td>
+                <td>${latestChecks.containsKey(url.getId()) ? latestChecks.get(url.getId()).getCreatedAt().toLocalDateTime().toLocalDate().toString() : ""}</td>
+                <td>${latestChecks.containsKey(url.getId()) ? String.valueOf(latestChecks.get(url.getId()).getStatusCode()) : ""}</td>
             </tr>
         @endfor
         </tbody>

@@ -1,6 +1,7 @@
 package hexlet.code.controller;
 
 import hexlet.code.model.Url;
+import hexlet.code.repository.UrlCheckRepository;
 import hexlet.code.repository.UrlRepository;
 import io.javalin.http.Context;
 import io.javalin.http.NotFoundResponse;
@@ -15,12 +16,14 @@ public class UrlController {
 
     public static void index(Context ctx) throws SQLException {
         var urls = UrlRepository.getEntities();
+        var latestChecks = UrlCheckRepository.findLatestChecks();
         var flash = ctx.consumeSessionAttribute("flash");
         var flashType = ctx.consumeSessionAttribute("flash-type");
         ctx.render("urls/index.jte", Map.of(
                 "urls", urls,
                 "flash", flash == null ? "" : flash,
-                "flashType", flashType == null ? "" : flashType
+                "flashType", flashType == null ? "" : flashType,
+                "latestChecks", latestChecks
         ));
     }
 
@@ -28,10 +31,12 @@ public class UrlController {
         var id = ctx.pathParamAsClass("id", Long.class).get();
         var url = UrlRepository.find(id)
                 .orElseThrow(() -> new NotFoundResponse());
+        var checks = UrlCheckRepository.findByUrlId(id);
         var flash = ctx.consumeSessionAttribute("flash");
         var flashType = ctx.consumeSessionAttribute("flash-type");
         ctx.render("urls/show.jte", Map.of(
                 "url", url,
+                "checks", checks,
                 "flash", flash == null ? "" : flash,
                 "flashType", flashType == null ? "" : flashType
         ));
