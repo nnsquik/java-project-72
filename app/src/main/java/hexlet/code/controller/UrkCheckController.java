@@ -41,6 +41,10 @@ public class UrkCheckController {
             var description = metaDesc != null
                     ? metaDesc.attr("content") : "";
 
+            title = title.length() > 200 ? title.substring(0, 200) + "..." : title;
+            h1 = h1.length() > 200 ? h1.substring(0, 200) + "..." : h1;
+            description = description.length() > 200 ? description.substring(0, 200) + "..." : description;
+
             var urlCheck = new UrlCheck(statusCode, title, h1, description, id);
             UrlCheckRepository.save(urlCheck);
 

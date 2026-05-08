@@ -23,7 +23,7 @@ public class UrlCheckRepository extends BaseRepository {
         var sql = "INSERT INTO url_checks (url_id, status_code, h1, title, description, created_at) "
                 + "VALUES (?, ?, ?, ?, ?, ?)";
         try (var connection = dataSource.getConnection();
-        var statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+             var statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             statement.setLong(1, urlCheck.getUrlId());
             statement.setInt(2, urlCheck.getStatusCode());
             statement.setString(H1_INDEX, urlCheck.getH1());
