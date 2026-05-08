@@ -4,16 +4,16 @@ import hexlet.code.model.Url;
 import hexlet.code.repository.UrlCheckRepository;
 import hexlet.code.repository.UrlRepository;
 import io.javalin.http.Context;
+import io.javalin.http.HttpStatus;
 import io.javalin.http.NotFoundResponse;
+import lombok.extern.slf4j.Slf4j;
 
 import java.net.URI;
 import java.sql.SQLException;
 import java.util.Map;
 
-
+@Slf4j
 public class UrlController {
-    private static final int UNPROCESSABLE_ENTITY = 422;
-
     public static void index(Context ctx) throws SQLException {
         var urls = UrlRepository.getEntities();
         var latestChecks = UrlCheckRepository.findLatestChecks();
@@ -44,9 +44,9 @@ public class UrlController {
 
     public static void create(Context ctx) throws SQLException {
         var input = ctx.formParam("url");
-        System.out.println("=== INPUT URL: " + input + " ===");
+
         if (input == null || input.isBlank()) {
-            ctx.status(UNPROCESSABLE_ENTITY);
+            ctx.status(HttpStatus.UNPROCESSABLE_CONTENT);
             ctx.render("index.jte", Map.of(
                     "flash", "Некорректный URL",
                     "flash-type", "danger"
@@ -62,7 +62,8 @@ public class UrlController {
                     + (port != -1 ? ":" + port : "");
 
         } catch (Exception e) {
-            ctx.status(UNPROCESSABLE_ENTITY);
+            log.info("Ошибка проверки URL: {}", e.getMessage());
+            ctx.status(HttpStatus.UNPROCESSABLE_CONTENT);
             ctx.render("index.jte", Map.of(
                     "flash", "Некорректный URL",
                     "flashType", "danger"

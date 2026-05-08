@@ -23,7 +23,7 @@
             <tr>
                 <td>${url.getId()}</td>
                 <td><a href="/urls/${url.getId()}">${url.getName()}</a></td>
-                <td>${latestChecks.containsKey(url.getId()) ? latestChecks.get(url.getId()).getCreatedAt().toLocalDateTime().toLocalDate().toString() : ""}</td>
+                <td>${latestChecks.containsKey(url.getId()) ? latestChecks.get(url.getId()).getCreatedAt().toLocalDateTime().toString() : ""}</td>
                 <td>${latestChecks.containsKey(url.getId()) ? String.valueOf(latestChecks.get(url.getId()).getStatusCode()) : ""}</td>
             </tr>
         @endfor

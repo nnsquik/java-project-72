@@ -1,5 +1,4 @@
 plugins {
-    id("java")
     id("application")
     id("io.freefair.lombok") version "9.5.0"
     id("org.sonarqube") version "7.2.3.7755"
