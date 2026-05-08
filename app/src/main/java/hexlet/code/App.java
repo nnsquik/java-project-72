@@ -31,6 +31,7 @@ public class App {
 
         var dataSource = new HikariDataSource(hikariConfig);
         BaseRepository.dataSource = dataSource;
+        Unirest.config().reset();
         Unirest.config().followRedirects(true).connectTimeout(5000).socketTimeout(5000);
 
         var sql = readResourceFile("schema.sql");
