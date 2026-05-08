@@ -46,9 +46,9 @@
             <tr>
                 <td>${check.getId()}</td>
                 <td>${check.getStatusCode()}</td>
-                <td>${check.getH1() != null ? check.getH1() : ""}</td>
-                <td>${check.getTitle() != null ? check.getTitle() : ""}</td>
-                <td>${check.getDescription() != null ? check.getDescription() : ""}</td>
+                <td>${check.getH1() != null && check.getH1().length() > 200 ? check.getH1().substring(0, 200) + "..." : check.getH1() != null ? check.getH1() : ""}</td>
+                <td>${check.getTitle() != null && check.getTitle().length() > 200 ? check.getTitle().substring(0, 200) + "..." : check.getTitle() != null ? check.getTitle() : ""}</td>
+                <td>${check.getDescription() != null && check.getDescription().length() > 200 ? check.getDescription().substring(0, 200) + "..." : check.getDescription() != null ? check.getDescription() : ""}</td>
                 <td>${check.getCreatedAt() != null ? check.getCreatedAt().toLocalDate().toString() : ""}</td>
             </tr>
         @endfor
