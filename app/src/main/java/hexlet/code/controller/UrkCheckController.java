@@ -22,6 +22,7 @@ public class UrkCheckController {
         try {
             var response = Unirest.get(url.getName()).asString();
             var statusCode = response.getStatus();
+            log.info("Status code for {}: {}", url.getName(), statusCode);
 
             if (statusCode >= HttpStatus.BAD_REQUEST.getCode()) {
                 ctx.sessionAttribute("flash", "Произошла ошибка при проверке");
