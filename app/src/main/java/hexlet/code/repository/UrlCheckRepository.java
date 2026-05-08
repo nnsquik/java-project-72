@@ -1,6 +1,7 @@
 package hexlet.code.repository;
 
 import hexlet.code.model.UrlCheck;
+import lombok.extern.slf4j.Slf4j;
 
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -11,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 public class UrlCheckRepository extends BaseRepository {
     private static final int H1_INDEX = 3;
     private static final int TITLE_INDEX = 4;
@@ -85,7 +87,9 @@ public class UrlCheckRepository extends BaseRepository {
                 check.setId(result.getLong("id"));
                 check.setCreatedAt(result.getTimestamp("created_at").toLocalDateTime());
                 checks.put(check.getUrlId(), check);
+                log.info("Found check: urlId={}, statusCode={}", result.getLong("url_id"), result.getInt("status_code"));
             }
+            log.info("Total checks found: {}", checks.size());
             return checks;
         }
     }
