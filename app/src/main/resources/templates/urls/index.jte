@@ -14,7 +14,7 @@
         <tr>
             <th>ID</th>
             <th>Имя</th>
-            <th>Дата создания</th>
+            <th>Дата последней проверки</th>
             <th>Код ответа</th>
         </tr>
         </thead>
@@ -23,7 +23,7 @@
             <tr>
                 <td>${url.getId()}</td>
                 <td><a href="/urls/${url.getId()}">${url.getName()}</a></td>
-                <td>${latestChecks.containsKey(url.getId()) ? latestChecks.get(url.getId()).getCreatedAt().toLocalDate().toString() : ""}</td>
+                <td>${latestChecks.containsKey(url.getId()) ? latestChecks.get(url.getId()).getCreatedAt().toString() : ""}</td>
                 <td>${latestChecks.containsKey(url.getId()) ? String.valueOf(latestChecks.get(url.getId()).getStatusCode()) : ""}</td>
             </tr>
         @endfor
