@@ -65,12 +65,8 @@ public class UrlCheckRepository extends BaseRepository {
     }
 
     public static Map<Long, UrlCheck> findLatestChecks() throws SQLException {
-        var sql = "SELECT url_checks.* FROM url_checks "
-                + "INNER JOIN ("
-                + "SELECT url_id, MAX(created_at) AS max_created_at "
-                + "FROM url_checks GROUP BY url_id"
-                + ") latest ON url_checks.url_id = latest.url_id "
-                + "AND url_checks.created_at = latest.max_created_at";
+        var sql = "SELECT * FROM url_checks WHERE id IN "
+                + "(SELECT MAX(id) FROM url_checks GROUP BY url_id)";
         try (var connection = dataSource.getConnection();
              var statement = connection.prepareStatement(sql)) {
             var result = statement.executeQuery();
@@ -87,7 +83,8 @@ public class UrlCheckRepository extends BaseRepository {
                 check.setId(result.getLong("id"));
                 check.setCreatedAt(result.getTimestamp("created_at").toLocalDateTime());
                 checks.put(check.getUrlId(), check);
-                log.info("Found check: urlId={}, statusCode={}", result.getLong("url_id"), result.getInt("status_code"));
+                log.info("Found check: urlId={}, statusCode={}", result.getLong("url_id"),
+                        result.getInt("status_code"));
             }
             log.info("Total checks found: {}", checks.size());
             return checks;

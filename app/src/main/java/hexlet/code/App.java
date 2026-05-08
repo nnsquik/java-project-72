@@ -10,7 +10,6 @@ import hexlet.code.controller.UrlController;
 import hexlet.code.repository.BaseRepository;
 import io.javalin.Javalin;
 import io.javalin.rendering.template.JavalinJte;
-import kong.unirest.Unirest;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -31,8 +30,6 @@ public class App {
 
         var dataSource = new HikariDataSource(hikariConfig);
         BaseRepository.dataSource = dataSource;
-        Unirest.config().reset();
-        Unirest.config().followRedirects(true).connectTimeout(5000).socketTimeout(5000);
 
         var sql = readResourceFile("schema.sql");
 
